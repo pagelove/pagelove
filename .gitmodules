@@ -1,0 +1,15 @@
+[submodule "js/dom-core"]
+	path = js/dom-core
+	url = https://github.com/pagelove/dom-core.git
+[submodule "js/selector-request"]
+	path = js/selector-request
+	url = https://github.com/pagelove/selector-request.git
+[submodule "js/dom-forms"]
+	path = js/dom-forms
+	url = https://github.com/pagelove/dom-forms.git
+[submodule "js/dom-primitives"]
+	path = js/dom-primitives
+	url = https://github.com/pagelove/dom-primitives.git
+[submodule "js/dom-subscriber"]
+	path = js/dom-subscriber
+	url = https://github.com/pagelove/dom-subscriber.git
