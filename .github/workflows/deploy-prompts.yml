@@ -7,7 +7,6 @@ on:
     paths:
       - 'prompts/**'
       - '.github/workflows/deploy-prompts.yml'
-  workflow_dispatch:
 
 permissions:
   id-token: write
