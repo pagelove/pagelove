@@ -1,0 +1,14 @@
+## Response Codes
+
+- **200 OK**: Successful GET of full document
+- **201 Created**: Successful PUT creating new document
+- **204 No Content**: Successful DELETE
+- **206 Partial Content**: Successful GET/PUT/POST with Range
+- **304 Not Modified**: ETag matches If-None-Match
+- **400 Bad Request**: Invalid Range header syntax
+- **404 Not Found**: Document not found
+- **412 Precondition Failed**: ETag doesn't match If-Match
+- **416 Range Not Satisfiable**: Selector doesn't match any elements
+- **500 Internal Server Error**: Server error
+- **501 Not Implemented**: Unsupported HTTP method
+- **503 Service Unavailable**: Budget exceeded

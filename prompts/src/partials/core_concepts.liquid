@@ -1,0 +1,14 @@
+## Core Concepts
+
+PageLove Server is a Rust HTTP server implementing the CSS Selector Range Unit RFC specification, with DOM filesystem (DOMFs) persistence and HTML microdata extraction.
+
+### Features
+
+- **CSS Selector Range Requests**: Use CSS selectors in HTTP Range headers to request specific DOM elements
+- **CRUD Operations**: GET, HEAD, PUT, POST, DELETE with Range support
+- **Content Negotiation**: Accept header support for text/html, application/xml, and application/ld+json
+- **Microdata Extraction**: Automatic extraction of HTML microdata and conversion to JSON-LD
+- **Multi-host Support**: Host header-based routing with complete isolation
+- **Resource Budgets**: Configurable operation, memory, and time limits per host
+- **ETag Support**: Generation-based ETags for concurrency control
+- **Conditional Requests**: If-None-Match and If-Match headers

@@ -1,0 +1,9 @@
+{
+  "project_name": "Pagelove",
+  "version": "1.0.0",
+  "docs_url": "https://docs.pagelove.org",
+  "contact_info": "support@pagelove.org",
+  "server_config_schema": "https://pagelove.org/ServerConfig",
+  "transaction_budget_schema": "https://pagelove.org/TransactionBudget",
+  "host_config_schema": "https://pagelove.org/HostConfig"
+}

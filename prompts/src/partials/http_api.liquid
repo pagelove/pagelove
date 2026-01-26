@@ -1,0 +1,114 @@
+## HTTP API
+
+### GET: Retrieve Documents or Elements
+
+#### Full Document
+
+```bash
+curl -H "Host: example.com" http://localhost:8080/document.html
+```
+
+#### Element Selection with Range
+
+```bash
+curl -H "Host: example.com" \
+     -H "Range: selector=.content" \
+     http://localhost:8080/document.html
+```
+
+#### Content Negotiation
+
+Request JSON-LD (microdata extraction):
+
+```bash
+curl -H "Host: example.com" \
+     -H "Accept: application/ld+json" \
+     http://localhost:8080/document.html
+```
+
+Response:
+
+```json
+{
+  "@context": "http://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "name": "John Doe",
+      "email": "john@example.com"
+    }
+  ]
+}
+```
+
+### PUT: Replace Documents or Elements
+
+#### Replace Full Document
+
+```bash
+curl -X PUT -H "Host: example.com" \
+     -H "Content-Type: text/html" \
+     -d '<html><body><h1>New Content</h1></body></html>' \
+     http://localhost:8080/document.html
+```
+
+#### Replace Element with Range
+
+```bash
+curl -X PUT -H "Host: example.com" \
+     -H "Range: selector=.content" \
+     -H "Content-Type: text/html" \
+     -d '<div class="content">Updated content</div>' \
+     http://localhost:8080/document.html
+```
+
+### POST: Append Elements
+
+```bash
+curl -X POST -H "Host: example.com" \
+     -H "Range: selector=body" \
+     -H "Content-Type: text/html" \
+     -d '<p>New paragraph</p>' \
+     http://localhost:8080/document.html
+```
+
+### DELETE: Remove Documents or Elements
+
+#### Delete Full Document
+
+```bash
+curl -X DELETE -H "Host: example.com" \
+     http://localhost:8080/document.html
+```
+
+#### Delete Element with Range
+
+```bash
+curl -X DELETE -H "Host: example.com" \
+     -H "Range: selector=.obsolete" \
+     http://localhost:8080/document.html
+```
+
+### Conditional Requests
+
+#### If-None-Match (GET)
+
+```bash
+curl -H "Host: example.com" \
+     -H "If-None-Match: \"12345\"" \
+     http://localhost:8080/document.html
+```
+
+Returns 304 Not Modified if ETag matches.
+
+#### If-Match (PUT/POST/DELETE)
+
+```bash
+curl -X PUT -H "Host: example.com" \
+     -H "If-Match: \"12345\"" \
+     -H "Content-Type: text/html" \
+     -d '<html><body><h1>Updated</h1></body></html>' \
+     http://localhost:8080/document.html
+```
+
+Returns 412 Precondition Failed if ETag doesn't match.

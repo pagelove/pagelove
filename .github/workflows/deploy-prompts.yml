@@ -1,0 +1,59 @@
+name: Deploy Prompts
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'prompts/**'
+      - '.github/workflows/deploy-prompts.yml'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy Prompts
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install -r prompts/src/requirements.txt
+
+      - name: Generate Prompts
+        run: |
+          cd prompts/src
+          python promptgen.py
+
+      - name: Upload Prompts
+        # Uploads all .md files from prompts/ to pagelove.md/ directory in the $web container
+        run: |
+          for file in prompts/*.md; do
+            filename=$(basename "$file")
+            echo "Uploading $filename..."
+            az storage blob upload \
+              --account-name ${{ secrets.AZURE_STORAGE_ACCOUNT }} \
+              --auth-mode login \
+              --container-name '$web' \
+              --file "$file" \
+              --name "pagelove.md/$filename" \
+              --content-type "text/markdown" \
+              --overwrite
+          done

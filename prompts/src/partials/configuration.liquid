@@ -1,0 +1,61 @@
+## Configuration
+
+The server uses HTML microdata for configuration. See `config.example.html` for a complete example.
+
+### Basic Configuration Structure
+
+```html
+<!DOCTYPE html>
+<html>
+<body>
+    <section itemscope itemtype="{{ server_config_schema }}">
+        <h1>Server Configuration</h1>
+
+        <meta itemprop="bind-address" content="127.0.0.1:8080"/>
+
+        <div itemprop="budget" itemscope itemtype="{{ transaction_budget_schema }}">
+            <dl>
+                <dt>Operations</dt>
+                <dd itemprop="operations">1000000</dd>
+
+                <dt>Memory (bytes)</dt>
+                <dd itemprop="memory">10485760</dd>
+
+                <dt>Duration (Milliseconds)</dt>
+                <dd itemprop="duration">900</dd>
+            </dl>
+        </div>
+
+        <meta itemprop="fs-root" content="./data/server.domfs"/>
+
+        <ul>
+            <li itemprop="host" itemscope itemtype="{{ host_config_schema }}">
+                <h2>The <span itemprop="hostname">example.com</span> host</h2>
+
+                <!-- Optional budget override -->
+                <div itemprop="budget" itemscope itemtype="{{ transaction_budget_schema }}">
+                    <dl>
+                        <dt>Duration (Milliseconds)</dt>
+                        <dd itemprop="duration">1500</dd>
+                    </dl>
+                </div>
+            </li>
+        </ul>
+    </section>
+</body>
+</html>
+```
+
+### Configuration Properties
+
+- **bind-address**: IP and port to listen on (e.g., "127.0.0.1:8080")
+- **fs-root**: Root directory for host databases
+- **budget**: Resource limits
+  - **operations**: Maximum number of operations per transaction
+  - **memory**: Maximum memory usage in bytes
+  - **duration**: Maximum duration in milliseconds
+- **host**: Per-host configuration
+  - **hostname**: Virtual host name
+  - **budget**: Optional budget overrides for this host
+
+The database path for each host is inferred as: `{fs-root}/{hostname}.domfs`
