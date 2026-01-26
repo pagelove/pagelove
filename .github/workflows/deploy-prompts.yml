@@ -3,7 +3,7 @@ name: Deploy Prompts
 on:
   push:
     branches:
-      - main
+      - prod
     paths:
       - 'prompts/**'
       - '.github/workflows/deploy-prompts.yml'
