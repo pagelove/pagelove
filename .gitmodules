@@ -13,3 +13,6 @@
 [submodule "js/dom-subscriber"]
 	path = js/dom-subscriber
 	url = https://github.com/pagelove/dom-subscriber.git
+[submodule "js/pagelove-primitives"]
+	path = js/pagelove-primitives
+	url = https://github.com/pagelove/pagelove-primitives.git
